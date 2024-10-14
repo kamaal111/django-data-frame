@@ -7,9 +7,6 @@ import narwhals as nw
 import polars as pl
 from django.db import connection, models
 
-if TYPE_CHECKING:
-    from django.db.models.query import ValuesQuerySet
-
 
 class DataFrameQuerySet(models.QuerySet):
     def to_polars(self) -> pl.LazyFrame:
@@ -75,6 +72,8 @@ class DataFrameManager(
 # This class is there just to extend the types on `ValuesQuerySet` so should
 # ony be used to assist with type hinting.
 if TYPE_CHECKING:
+    from django.db.models.query import ValuesQuerySet
+
     DataFrameValuesQuerySetModel = TypeVar(
         "DataFrameValuesQuerySetModel", bound=models.Model
     )
