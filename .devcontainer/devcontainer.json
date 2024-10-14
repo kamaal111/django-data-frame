@@ -21,7 +21,8 @@
 				"streetsidesoftware.code-spell-checker",
 				"tamasfe.even-better-toml",
 				"aaron-bond.better-comments",
-				"charliermarsh.ruff"
+				"charliermarsh.ruff",
+				"yzhang.markdown-all-in-one"
 			]
 		}
 	},
