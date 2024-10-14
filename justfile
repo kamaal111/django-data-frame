@@ -1,6 +1,21 @@
 # List available commands
 default:
-    just --list --unsorted --list-heading $'Available commands\n'
+    just --list --unsorted
+
+# Test
+test:
+    #!/bin/zsh
+
+    . .venv/bin/activate
+    pytest
+
+# Build
+build:
+    rye build
+
+# Clean then build
+clean-build:
+    rye build --clean
 
 # Lint code
 lint:
@@ -23,14 +38,15 @@ format:
     . .venv/bin/activate
     ruff format .
 
+# Bootstrap all the tools needed to run this project
+bootstrap: install-rye install-modules setup-pre-commit
+
 # Run after creating dev container
 post-dev-container-create:
     just .devcontainer/post-create
     just bootstrap
 
-# Bootstrap all the tools needed to run this project
-bootstrap: install-rye install-modules setup-pre-commit
-
+# Install modules
 install-modules:
     #!/bin/zsh
 
