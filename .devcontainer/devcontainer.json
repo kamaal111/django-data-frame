@@ -1,0 +1,33 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+{
+	"name": "django-data-frame",
+	"dockerComposeFile": [
+		"docker-compose.code.yml"
+	],
+	"service": "code",
+	"workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
+	"postCreateCommand": "just post-dev-container-create",
+	"customizations": {
+		"vscode": {
+			"settings": {
+				"terminal.integrated.defaultProfile.linux": "zsh"
+			},
+			"extensions": [
+				"eamodio.gitlens",
+				"skellock.just",
+				"ms-python.python",
+				"redhat.vscode-yaml",
+				"ms-azuretools.vscode-docker",
+				"streetsidesoftware.code-spell-checker",
+				"tamasfe.even-better-toml",
+				"aaron-bond.better-comments",
+				"charliermarsh.ruff"
+			]
+		}
+	},
+	"features": {
+		"ghcr.io/guiyomh/features/just:0": {},
+		"ghcr.io/devcontainers/features/docker-outside-of-docker:1": {}
+	},
+	"forwardPorts": []
+}
