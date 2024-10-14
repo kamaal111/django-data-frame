@@ -5,7 +5,11 @@ description = "Add your description here"
 authors = [
     { name = "Kamaal Farah", email = "kamaal.f1@gmail.com" }
 ]
-dependencies = []
+dependencies = [
+    "narwhals>=1.9.3",
+    "polars>=1.9.0",
+    "django>=5.1.2",
+]
 readme = "README.md"
 requires-python = ">= 3.8"
 
