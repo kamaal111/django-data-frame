@@ -18,6 +18,7 @@ dev-dependencies = [
     "ruff>=0.6.9",
     "pytest>=8.3.3",
     "pytest-django>=4.9.0",
+    "pytest-xdist>=3.6.1",
 ]
 
 [tool.hatch.metadata]
