@@ -9,6 +9,13 @@ test:
     . .venv/bin/activate
     pytest
 
+# Test with code coverage
+test-cov:
+    #!/bin/zsh
+
+    . .venv/bin/activate
+    pytest --cov=src/django_data_frame tests/
+
 # Build
 build:
     rye build
