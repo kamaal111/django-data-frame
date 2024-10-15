@@ -13,6 +13,3 @@ class Blog(models.Model):
     date_edited = models.DateTimeField(default=None, null=True)
 
     objects: DataFrameManager[Blog] = DataFrameManager()
-
-    def __str__(self) -> str:
-        return f"({self.pk}) {self.title}"

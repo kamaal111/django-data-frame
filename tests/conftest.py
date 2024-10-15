@@ -28,8 +28,17 @@ def create_blogs():
 
 
 @pytest.fixture
-def all_blogs():
-    blogs = Blog.objects.all()
+def all_blogs_from_manager():
+    blogs = Blog.objects
+
+    assert blogs.count() > 0
+
+    return blogs
+
+
+@pytest.fixture
+def all_blogs_from_query_set():
+    blogs = Blog.objects.all().all()
 
     assert blogs.count() > 0
 
