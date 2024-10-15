@@ -24,7 +24,7 @@ def create_blogs():
         title="Draft",
         content="#ToDo",
         is_draft=True,
-        date_edited=datetime(2024, 10, 14, tzinfo=timezone.utc),
+        date_edited=datetime(2022, 10, 14, tzinfo=timezone.utc),
     )
 
     mixer.cycle(20).blend(Blog)

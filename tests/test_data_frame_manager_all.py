@@ -2,7 +2,7 @@ from datetime import datetime
 
 import pytest
 
-BLOG_COLUMNS = ["id", "title", "content", "is_draft", "date_published", "date_edited"]
+from tests.test_app.models import Blog
 
 
 @pytest.fixture
@@ -115,4 +115,4 @@ def test_all_on_manager(create_blogs, data_frame_fixture_name, request):
         .max(),
         datetime,
     )
-    assert sorted(data_frame.columns) == sorted(BLOG_COLUMNS)
+    assert sorted(data_frame.columns) == Blog.get_sorted_fields_names()

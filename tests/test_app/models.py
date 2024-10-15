@@ -14,3 +14,7 @@ class Blog(models.Model):
     date_edited = models.DateTimeField(default=timezone.now)
 
     objects: DataFrameManager[Blog] = DataFrameManager()
+
+    @classmethod
+    def get_sorted_fields_names(cls):
+        return sorted([field.name for field in cls._meta.get_fields()])
