@@ -33,4 +33,33 @@ jobs:
         run: just prepare
 
       - name: Test
-        run: just test
+        run: just test-cov
+
+  build:
+    name: Build
+    timeout-minutes: 5
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    if: contains(github.ref, 'refs/heads/release/') == false && startsWith(github.ref, 'refs/tags/') == false
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install zsh
+        run: |
+          if [ "$RUNNER_OS" == "Linux" ]; then
+            sudo apt-get update; sudo apt-get install zsh
+          fi
+
+      - name: Install just
+        uses: taiki-e/install-action@just
+
+      - name: Install the latest version of rye
+        uses: eifinger/setup-rye@v4
+
+      - name: Prepare project
+        run: just prepare
+
+      - name: Build
+        run: just build
