@@ -1,45 +1,12 @@
-from datetime import datetime, timezone
+from datetime import datetime
 
 import pytest
-
-from tests.test_app.models import Blog
 
 BLOG_COLUMNS = ["id", "title", "content", "is_draft", "date_published", "date_edited"]
 
 
 @pytest.fixture
-def create_blogs():
-    Blog.objects.create(
-        title="First",
-        content="#Content",
-        is_draft=False,
-        date_published=datetime(2024, 8, 14, tzinfo=timezone.utc),
-    )
-    Blog.objects.create(
-        title="Second",
-        content="#Header",
-        is_draft=False,
-        date_published=datetime(2024, 9, 14, tzinfo=timezone.utc),
-    )
-    Blog.objects.create(
-        title="Draft",
-        content="#ToDo",
-        is_draft=True,
-        date_edited=datetime(2024, 10, 14, tzinfo=timezone.utc),
-    )
-
-
-@pytest.fixture
-def all_blogs(create_blogs):
-    blogs = Blog.objects.all()
-
-    assert blogs.count() > 0
-
-    return blogs
-
-
-@pytest.fixture
-def blogs_lazy_collected_polars(all_blogs):
+def blogs_lazy_collected_polars(create_blogs, all_blogs):
     data_frame = all_blogs.to_polars().collect()
 
     assert data_frame.height > 0
@@ -49,7 +16,7 @@ def blogs_lazy_collected_polars(all_blogs):
 
 
 @pytest.fixture
-def blogs_eager_collected_polars(all_blogs):
+def blogs_eager_collected_polars(create_blogs, all_blogs):
     data_frame = all_blogs.to_eager_polars()
 
     assert data_frame.height > 0
@@ -59,7 +26,7 @@ def blogs_eager_collected_polars(all_blogs):
 
 
 @pytest.fixture
-def blogs_lazy_collected_narwhals_from_polars(all_blogs):
+def blogs_lazy_collected_narwhals_from_polars(create_blogs, all_blogs):
     data_frame = all_blogs.to_narwhals_from_polars().collect()
 
     assert data_frame.shape[0] > 0
@@ -69,7 +36,7 @@ def blogs_lazy_collected_narwhals_from_polars(all_blogs):
 
 
 @pytest.fixture
-def blogs_eager_collected_narwhals_from_polars(all_blogs):
+def blogs_eager_collected_narwhals_from_polars(create_blogs, all_blogs):
     data_frame = all_blogs.to_narwhals_from_eager_polars()
 
     assert data_frame.shape[0] > 0
@@ -88,7 +55,7 @@ def blogs_eager_collected_narwhals_from_polars(all_blogs):
         "blogs_eager_collected_narwhals_from_polars",
     ],
 )
-def test_all(data_frame_fixture_name, request):
+def test_all_on_manager(data_frame_fixture_name, request):
     data_frame = request.getfixturevalue(data_frame_fixture_name)
     assert isinstance(data_frame.get_column("title").head(1).max(), str)
     assert isinstance(data_frame.get_column("content").head(1).max(), str)
