@@ -1,6 +1,7 @@
 from datetime import datetime, timezone
 
 import pytest
+from mixer.backend.django import mixer
 
 from tests.test_app.models import Blog
 
@@ -25,6 +26,8 @@ def create_blogs():
         is_draft=True,
         date_edited=datetime(2024, 10, 14, tzinfo=timezone.utc),
     )
+
+    mixer.cycle(20).blend(Blog)
 
 
 @pytest.fixture

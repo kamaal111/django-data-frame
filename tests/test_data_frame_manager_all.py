@@ -101,17 +101,17 @@ def blogs_eager_collected_narwhals_from_polars_query_set(all_blogs_from_query_se
 )
 def test_all_on_manager(create_blogs, data_frame_fixture_name, request):
     data_frame = request.getfixturevalue(data_frame_fixture_name)
-    assert isinstance(data_frame.get_column("title").head(1).max(), str)
-    assert isinstance(data_frame.get_column("content").head(1).max(), str)
-    assert isinstance(data_frame.get_column("is_draft").head(1).max(), bool)
+    assert isinstance(data_frame.get_column("title").sample(1).max(), str)
+    assert isinstance(data_frame.get_column("content").sample(1).max(), str)
+    assert isinstance(data_frame.get_column("is_draft").sample(1).max(), bool)
     assert isinstance(
-        data_frame.drop_nulls("date_edited").get_column("date_edited").head(1).max(),
+        data_frame.get_column("date_edited").sample(1).max(),
         datetime,
     )
     assert isinstance(
         data_frame.drop_nulls("date_published")
         .get_column("date_published")
-        .head(1)
+        .sample(1)
         .max(),
         datetime,
     )
