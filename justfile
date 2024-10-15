@@ -74,7 +74,7 @@ install-rye:
 
     . ~/.zshrc
 
-    cp -f rye-config.toml ~/.rye/config.toml
+    cp -f .devcontainer/rye-config.toml ~/.rye/config.toml
     curl -sSf https://rye.astral.sh/get | RYE_INSTALL_OPTION="--yes"  bash
 
     . "$HOME/.rye/env"
