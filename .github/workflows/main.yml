@@ -20,8 +20,11 @@ jobs:
       - name: Install just
         uses: taiki-e/install-action@just
 
-      - name: Initialize environment
-        run: just bootstrap
+      - name: Install the latest version of rye
+        uses: eifinger/setup-rye@v4
+
+      - name: Prepare project
+        run: just prepare
 
       - name: Test
         run: just test

@@ -45,8 +45,11 @@ format:
     . .venv/bin/activate
     ruff format .
 
+# Prepare project to work with
+prepare: install-modules setup-pre-commit
+
 # Bootstrap all the tools needed to run this project
-bootstrap: install-rye install-modules setup-pre-commit
+bootstrap: install-rye prepare
 
 # Run after creating dev container
 post-dev-container-create:
