@@ -64,6 +64,20 @@ install-modules:
 
     rye sync
 
+assert-has-no-diffs:
+    #!/bin/bash
+
+    current_branch=$(git symbolic-ref --short HEAD)
+    diffs=$(git diff --name-only "origin/$current_branch" | sed '/^$/d' | awk '{print NR}'| sort -nr | sed -n '1p')
+    just assert-is-empty "$diffs"
+
+[private]
+assert-is-empty value:
+    #!.venv/bin/python
+
+    value = "{{ value }}"
+    assert value == "" or int(value) == 0
+
 [private]
 setup-pre-commit:
     #!/bin/zsh

@@ -7,8 +7,8 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  test:
-    name: Test
+  quality:
+    name: Quality
     timeout-minutes: 5
     strategy:
       matrix:
@@ -32,8 +32,17 @@ jobs:
       - name: Prepare project
         run: just prepare
 
+      - name: Lint
+        run: just lint
+
       - name: Test
         run: just test-cov
+
+      - name: Format
+        run: just format
+
+      - name: Check if no diffs
+        run: just assert-has-no-diffs
 
   build:
     name: Build
@@ -63,3 +72,6 @@ jobs:
 
       - name: Build
         run: just build
+
+      - name: Check if no diffs
+        run: just assert-has-no-diffs
