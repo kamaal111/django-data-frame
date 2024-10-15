@@ -17,6 +17,12 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Install zsh
+        run: |
+          if [ "$RUNNER_OS" == "Linux" ]; then
+            sudo apt-get update; sudo apt-get install zsh
+          fi
+
       - name: Install just
         uses: taiki-e/install-action@just
 
